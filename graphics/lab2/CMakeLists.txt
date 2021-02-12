@@ -8,4 +8,4 @@ find_package(GLUT REQUIRED)
 
 add_executable(lab2 main.cpp)
 
-target_link_libraries(lab2 ${OPENGL_gl_LIBRARY} ${GLUT_LIBRARIES})
+target_link_libraries(lab2 ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES})

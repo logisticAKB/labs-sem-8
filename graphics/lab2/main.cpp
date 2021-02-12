@@ -8,6 +8,7 @@ GLfloat squareOffsetY = 0.0;
 
 void rotate() {
     angle += 2.0;
+    if (angle > 360.0) angle -= 360.0;
     glutPostRedisplay();
 }
 

@@ -3,6 +3,8 @@
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
 
+    glPushMatrix();
+
     glColor3f(1.0,1.0,1.0);
     glBegin(GL_POLYGON);
     glVertex3f(0.25, 0.25, 0.0); // bottom left
@@ -11,7 +13,9 @@ void display() {
     glVertex3f(0.25, 0.75, 0.0); // top left
     glEnd();
 
-    glFlush();
+    glPopMatrix();
+
+    glutSwapBuffers();
 }
 
 void keyHandler(unsigned char key, int x, int y) {
@@ -20,7 +24,7 @@ void keyHandler(unsigned char key, int x, int y) {
 
 int main(int argc, char *argv[]) {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowSize(1024, 768);
     glutInitWindowPosition(100, 100);
     glutCreateWindow("Lab 1");

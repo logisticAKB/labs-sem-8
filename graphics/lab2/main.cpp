@@ -15,7 +15,8 @@ void rotate() {
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glMatrixMode(GL_MODELVIEW);
+    glMatrixMode(GL_PROJECTION);
+//    glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
     glPushMatrix();

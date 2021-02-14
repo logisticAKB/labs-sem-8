@@ -8,13 +8,15 @@ GLfloat squareOffsetY = 0.0;
 
 void rotate() {
     angle += 2.0;
+    if (angle > 360.0) angle -= 360.0;
     glutPostRedisplay();
 }
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glMatrixMode(GL_MODELVIEW);
+    glMatrixMode(GL_PROJECTION);
+//    glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
     glPushMatrix();

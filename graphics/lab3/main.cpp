@@ -106,22 +106,41 @@ void keyHandler(unsigned char key, int x, int y) {
             exit(0);
         case 'w':
             eyeY += 0.01 * speed;
+            if (eyeY > r) eyeY -= r;
+            if (std::abs(std::abs(eyeY) - r) < 0.0001) {
+                eyeZ = 0.0f;
+            } else {
+                eyeZ = std::sqrt(r*r - eyeY*eyeY);
+            }
             break;
         case 's':
             eyeY -= 0.01 * speed;
+            if (eyeY < -r) eyeY += r;
+            if (std::abs(std::abs(eyeY) - r) < 0.0001) {
+                eyeZ = 0.0f;
+            } else {
+                eyeZ = std::sqrt(r*r - eyeY*eyeY);
+            }
             break;
         case 'a':
             eyeX -= 0.01 * speed;
-            break;
-        case 'd':
-            eyeX += 0.01 * speed;
+            if (eyeX < -r) eyeX += r;
             if (std::abs(std::abs(eyeX) - r) < 0.0001) {
                 eyeZ = 0.0f;
             } else {
                 eyeZ = std::sqrt(r*r - eyeX*eyeX);
             }
-            std::cout << eyeX << std::endl;
-            std::cout << eyeZ << std::endl;
+            break;
+        case 'd':
+            eyeX += 0.01 * speed;
+            if (eyeX > r) eyeX -= r;
+            if (std::abs(std::abs(eyeX) - r) < 0.0001) {
+                eyeZ = 0.0f;
+            } else {
+                eyeZ = std::sqrt(r*r - eyeX*eyeX);
+            }
+//            std::cout << eyeX << std::endl;
+//            std::cout << eyeZ << std::endl;
             break;
         default:
             break;

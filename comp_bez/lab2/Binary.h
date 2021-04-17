@@ -10,6 +10,9 @@
 class Binary {
 public:
     static std::string toBinaryString(int value);
+    static int toInt(const std::string& value);
+    static std::string sum(const std::string& value1, const std::string& value2);
+    static std::string unsum(const std::string& value1, const std::string& value2);
 };
 
 

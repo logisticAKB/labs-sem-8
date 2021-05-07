@@ -64,11 +64,27 @@ void MainWindow::generatePublicKeyState() {
 //}
 
 void MainWindow::encrypt() {
-    ui->encryptedMsg->setText(Binary::sum(ui->message->text().toStdString(), ui->publicKey->text().toStdString()).data());
+    if (ui->binaryValsChecker->isChecked()) {
+        ui->encryptedMsg->setText(Binary::sum(ui->message->text().toStdString(), ui->publicKey->text().toStdString()).data());
+    } else {
+        int msg = ui->message->text().toInt();
+        int publicKey = ui->publicKey->text().toInt();
+        int mod = ui->MOD->text().toInt();
+        int encryptedMsg = Cipher::encryptLongMessage(msg, publicKey, mod);
+        ui->encryptedMsg->setText(std::to_string(encryptedMsg).data());
+    }
 }
 
 void MainWindow::decrypt() {
-    ui->decryptedMsg->setText(Binary::sum(ui->encryptedMsg->text().toStdString(), ui->publicKey->text().toStdString()).data());
+    if (ui->binaryValsChecker->isChecked()) {
+        ui->decryptedMsg->setText(Binary::sum(ui->encryptedMsg->text().toStdString(), ui->publicKey->text().toStdString()).data());
+    } else {
+        int msg = ui->encryptedMsg->text().toInt();
+        int privateKey = ui->privateKey->text().toInt();
+        int mod = ui->MOD->text().toInt();
+        int decryptedMsg = Cipher::decryptLongMessage(msg, privateKey, mod);
+        ui->decryptedMsg->setText(std::to_string(decryptedMsg).data());
+    }
 }
 
 //void MainWindow::decrypt() {
@@ -89,7 +105,15 @@ void MainWindow::decrypt() {
 //}
 
 void MainWindow::bruteForcePublicKey() {
-    ui->publicKey->setText(Binary::unsum(ui->encryptedMsg->text().toStdString(), ui->decryptedMsg->text().toStdString()).data());
+    if (ui->binaryValsChecker->isChecked()) {
+        ui->publicKey->setText(Binary::unsum(ui->encryptedMsg->text().toStdString(), ui->decryptedMsg->text().toStdString()).data());
+    } else {
+        int msg = ui->message->text().toInt();
+        int encryptedMsg = ui->encryptedMsg->text().toInt();
+        int mod = ui->MOD->text().toInt();
+        int publicKey = Cipher::bruteForcePublicKey(msg, encryptedMsg, mod);
+        ui->publicKey->setText(std::to_string(publicKey).data());
+    }
 }
 
 //void MainWindow::bruteForcePrivateKey() {
@@ -101,10 +125,18 @@ void MainWindow::bruteForcePublicKey() {
 //}
 
 void MainWindow::bruteForcePrivateKey() {
-    int encryptedMsg = Binary::toInt(ui->encryptedMsg->text().toStdString());
-    int decryptedMsg = Binary::toInt(ui->decryptedMsg->text().toStdString());
-    int mod = ui->MOD->text().toInt();
-    int privateKey = Cipher::bruteForcePrivateKey(encryptedMsg, decryptedMsg, mod);
-    std::string privateKeyBin = Binary::toBinaryString(privateKey);
-    ui->privateKey->setText(privateKeyBin.data());
+    if (ui->binaryValsChecker->isChecked()) {
+        int encryptedMsg = Binary::toInt(ui->encryptedMsg->text().toStdString());
+        int decryptedMsg = Binary::toInt(ui->decryptedMsg->text().toStdString());
+        int mod = ui->MOD->text().toInt();
+        int privateKey = Cipher::bruteForcePrivateKey(encryptedMsg, decryptedMsg, mod);
+        std::string privateKeyBin = Binary::toBinaryString(privateKey);
+        ui->privateKey->setText(privateKeyBin.data());
+    } else {
+        int encryptedMsg = ui->encryptedMsg->text().toInt();
+        int decryptedMsg = ui->decryptedMsg->text().toInt();
+        int mod = ui->MOD->text().toInt();
+        int privateKey = Cipher::bruteForcePrivateKey(encryptedMsg, decryptedMsg, mod);
+        ui->privateKey->setText(std::to_string(privateKey).data());
+    }
 }
